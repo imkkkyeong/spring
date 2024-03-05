@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.sample.mapper.EmployeeMapper">
+	
+	<select id="getAllEmps" resultType="com.sample.vo.Employee">
+		select
+			emp_no 				as no,
+			emp_name			as name,
+			emp_tel				as tel,
+			emp_email			as email,
+			emp_salary			as salary,
+			emp_hire_date		as hireDate,
+			emp_created_date	as createdDate,
+			emp_updated_date	as updatedDate
+			
+		from
+			shop_employees
+		order by
+			emp_no desc
+	</select>
+	
+	<select id="getEmpByNo" parameterType="int" resultType="com.sample.vo.Employee">
+      select
+         e.emp_no         		as no,
+         e.emp_name         	as name,
+         e.emp_tel         		as tel,
+         e.emp_email         	as email,
+         e.emp_salary      		as salary,
+         e.emp_hire_date      	as hireDate,
+         e.dept_no         		as "dept.no",
+         d.dept_name         	as "dept.name",
+         e.emp_created_date   	as createdDate,
+         e.emp_updated_date   	as updatedDate
+      from
+         shop_employees e, shop_depts d
+      where
+         e.dept_no = d.dept_no
+         and e.emp_no = #{no}
+   </select>
+</mapper>
